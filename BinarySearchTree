@@ -1,0 +1,120 @@
+#include <stdio.h>
+#include<stdlib.h>
+
+typedef struct dugum{
+  int veri;
+  struct dugum *sol;
+  struct dugum *sag;
+}dugum;
+
+int arr[50];
+
+dugum* findMin(dugum* kok){
+  while (kok->sol!=NULL) kok = kok->sol;
+  return kok;
+}
+
+struct dugum* ekle(dugum* kok, int veri){
+
+  if (kok == NULL){//eklenilecek düğüme ulaşıldığında
+    dugum *tmp = (dugum*)calloc(1,sizeof(dugum));
+    kok=tmp;
+    kok->veri= veri;
+    kok->sag=kok->sol=NULL;
+  }else if (kok->veri > veri) kok->sol= ekle(kok->sol,veri);
+   else if (kok->veri < veri) kok->sag= ekle(kok->sag,veri);
+  return kok;
+
+}//ekle
+
+struct dugum* sil(dugum* kok, int veri){
+
+    if (kok==NULL) return kok;
+    else if (kok->veri > veri) kok->sol= sil(kok->sol,veri);
+    else if (kok->veri < veri) kok->sag= sil(kok->sag,veri);
+    else{ // silmek istediğim elemanı buldum
+
+      if (kok->sol==NULL && kok->sag==NULL){// hiç çocucuğu yok
+          free(kok);
+          return NULL;
+      } else if(kok->sol==NULL){//Silinecek düğümün sağ çocuğu var ise
+          dugum* tmp = kok->sag;
+          free(kok);
+          return(tmp);
+      } else if(kok->sag==NULL){// Silinecek düğümün sol çocuğu var ise
+          dugum* tmp = kok->sol;
+          free(kok);
+          return(tmp);
+      }else{// silinecek düğümün iki çocuğu var ise
+          dugum *tmp = findMin(kok->sag);
+          kok->veri = tmp->veri;
+          kok->sag =sil(kok->sag,tmp->veri);
+          return(kok);
+      }
+    }
+}
+
+void Inorder(dugum* kok){    // LNR - RNL biçiminde olabilir. 
+
+  if (kok== NULL) return;
+
+  Inorder(kok->sol);
+  printf("%d ",kok->veri);
+  Inorder(kok->sag);
+}
+
+void Postorder(dugum* kok){  // LRN - RLN
+
+  if (kok== NULL) return;
+
+  Postorder(kok->sol);
+  Postorder(kok->sag);
+  printf("%d ",kok->veri);
+
+}
+
+void Preorder(dugum* kok){  // NLR - NRL
+
+  if (kok== NULL) return;
+  printf("%d ",kok->veri);
+  Preorder(kok->sol);
+  Preorder(kok->sag);
+}
+
+int main(int argc, char const *argv[]) {
+
+  dugum *agac = NULL;
+  agac = ekle(agac,27);
+  agac = ekle(agac,11);
+  agac = ekle(agac,53);
+  agac = ekle(agac,36);
+  agac = ekle(agac,82);
+  agac = ekle(agac,49);
+  agac = ekle(agac,1);
+  agac = ekle(agac,10);
+  agac = ekle(agac,7);
+  agac = ekle(agac,30);
+  agac = ekle(agac,18);
+
+
+
+  Inorder(agac); printf("\n");
+  Postorder(agac);printf("\n");
+  Preorder(agac);printf("\n");
+
+  agac = sil(agac,36);
+  Inorder(agac); printf("\n");
+  Postorder(agac);printf("\n");
+  Preorder(agac);printf("\n");
+
+  agac = sil(agac,10);
+
+  Inorder(agac); printf("\n");
+  Postorder(agac);printf("\n");
+  Preorder(agac);printf("\n");
+
+
+  
+
+  return 0;
+}
