@@ -1,16 +1,16 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-/* BinarySearchTree : Kök -> (2çocuk) -> SaðDüðüm > SolDüðüm
+/* BinarySearchTree : KÃ¶k -> (2Ã§ocuk) -> SaÄŸDÃ¼ÄŸÃ¼m > SolDÃ¼ÄŸÃ¼m
 
-    KÖK DÜÐÜM YAPRAK -ROOT NODE LEAF-
+    KÃ–K DÃœÄžÃœM YAPRAK -ROOT NODE LEAF-
 
-    Aðacýn derinliði ( height ) = h ise (2^(h+1))-1 max düðüm sayýsý
+    AÄŸacÄ±n derinliÄŸi ( height ) = h ise (2^(h+1))-1 max dÃ¼ÄŸÃ¼m sayÄ±sÄ±
 
-    NOT: Binary Search Tree'lerde eleman ekleme iþleminin ne zaman yapýldýðý aðacýn durumunu deðiþtirir.(durumdan kasýt kimin çocuðu olduðu deðiþebilir. Bu deðiþimi
-                                                                                                            önmelek için araya ekleme fonksiyonu kullanabiliriz
+    NOT: Binary Search Tree'lerde eleman ekleme iÅŸleminin ne zaman yapÄ±ldÄ±ÄŸÄ± aÄŸacÄ±n durumunu deÄŸiÅŸtirir.(durumdan kasÄ±t kimin 
+    Ã§ocuÄŸu olduÄŸu deÄŸiÅŸebilir. Bu deÄŸiÅŸimi Ã¶nmelek iÃ§in araya ekleme fonksiyonu kullanabiliriz
 
-         -DOLAÞMA ÞEKÝLLERÝ-
+         -DOLAÅžMA ÅžEKÄ°LLERÄ°-
     INFIX = LeftNodeRight, RightNodeLeft
     PREFIX = NLR,NRL
     POSTFIX = LRN,RLN
@@ -23,7 +23,7 @@ struct n{
 };
 typedef n node;
 
-node *ekle(node *agac,int x){                            // BURADAKÝ ÖRNEK LND þeklindeydi
+node *ekle(node *agac,int x){                            // BURADAKÄ° Ã–RNEK LND ÅŸeklindeydi
     if(agac==NULL){
         node *root = (node*)malloc(sizeof(node));
         root->sol = NULL;
